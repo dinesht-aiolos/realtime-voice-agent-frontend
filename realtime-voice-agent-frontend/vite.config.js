@@ -7,5 +7,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: { host: true, // allows external access
+    allowedHosts: [ "pseudosocial-nasofrontal-eldora.ngrok-free.dev" ]
+  },
   // No proxy needed — server.py allows all origins already
 })
