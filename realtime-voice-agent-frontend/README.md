@@ -29,5 +29,5 @@ It allows users to **speak via microphone**, sends audio to the backend, and rec
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/realtime-voice-agent-frontend.git
+git clone https://github.com/dinesht-aiolos/realtime-voice-agent-frontend.git
 cd realtime-voice-agent-frontend
