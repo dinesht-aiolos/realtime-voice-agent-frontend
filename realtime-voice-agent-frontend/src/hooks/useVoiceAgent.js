@@ -640,6 +640,9 @@ export function useVoiceAgent(provider = "deepgram") {
       }
 
       switch (msg.type) {
+        case "response": addMessage("assistant", msg.text);
+         updateStatus(STATUS.READY); 
+         break;
         case "SettingsApplied":
           updateStatus(STATUS.READY);
             // 🔥 START MIC HERE (correct timing)
@@ -693,20 +696,24 @@ export function useVoiceAgent(provider = "deepgram") {
       ws.binaryType = "arraybuffer";
       wsRef.current = ws;
 
-   ws.onopen = async () => {
+
+ws.onopen = async () => {
   console.log("Connected");
 
-  // 1️⃣ Send INIT (for backend routing)
+  // 1️⃣ INIT (for all providers)
   ws.send(JSON.stringify({
     type: "INIT",
     provider: provider,
   }));
 
-  // 2️⃣ Send Settings (🔥 REQUIRED for Deepgram)
-  ws.send(JSON.stringify({
-    type: "Settings"
-  }));
+  // 2️⃣ Only Deepgram needs Settings
+  if (provider === "deepgram") {
+    ws.send(JSON.stringify({
+      type: "Settings"
+    }));
+  }
 };
+
 
       ws.onmessage = handleMessage;
 
